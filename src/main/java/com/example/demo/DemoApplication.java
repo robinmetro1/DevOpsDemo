@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 @RestController
 public class DemoApplication {
-	@GetMapping("message")
+	@GetMapping("/message")
 	public String getMessage(){
 		return "love you eya ";
 	}
