@@ -6,7 +6,15 @@ pipeline {
     stages {
         stage('Build Maven'){
             steps{
-                sh 'mvn clean install'
+                git 'https://github.com/robinmetro1/DevOpsDemo.git'
+                bat "mvn -Dmaven.failure.ignore=true clean install "
+            }
+            post{
+
+                success{
+                    echo "success build"
+                    
+                }
             }
         }
         stage('Build docker image'){
@@ -19,12 +27,12 @@ pipeline {
         stage('Push image to Hub'){
             sh 'docker push eyaea/devops-demo'
         }
-         stage('Deploying') {
-            steps {
-                echo "Deploying....."
-                
-            }  
-    }
+        stage('Deploying') {
+             echo "Deploying....."
+             }
+        stage('test') {
+             echo "tttt....."
+        }
 }
 }
 
