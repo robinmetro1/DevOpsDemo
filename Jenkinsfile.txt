@@ -1,18 +1,24 @@
 pipeline {
     agent any
+    tools {
+        maven 'Maven 3.3.9' 
+    }
     stages {
-        stage('Build') {
-            steps {
-                echo "Building.."
-                
+        stage('Build Maven'){
+            steps{
+                sh 'mvn clean install'
             }
         }
-        
-        stage('Test') {
-            steps {
-                echo "Testing.."
-                
+        stage('Build docker image'){
+            steps{
+                script{
+                    sh 'docker build -t eyaea/devops-demo .'
+                }
             }
+        }
+        stage('Push image to Hub'){
+            sh 'docker push eyaea/devops-demo'
+        }
          stage('Deploying') {
             steps {
                 echo "Deploying....."
@@ -21,3 +27,4 @@ pipeline {
     }
 }
 }
+

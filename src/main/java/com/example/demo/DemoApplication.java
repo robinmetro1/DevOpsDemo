@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class DemoApplication {
 	@GetMapping("/message")
 	public String getMessage(){
-		return "love you eya ";
+		return "aaa you eya ";
 	}
 
 	public static void main(String[] args) {
