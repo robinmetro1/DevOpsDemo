@@ -54,4 +54,15 @@ pipeline {
         stage('Deploying') {
             steps {
                 echo "Deploying..."
-                // Add deployment steps
+                // Add deployment steps here
+            }
+        }
+        
+        stage('Test') {
+            steps {
+                echo "Running tests..."
+                // Add test steps here
+            }
+        }
+    }
+}
