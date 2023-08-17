@@ -9,7 +9,7 @@ pipeline {
         stage('Build Maven') {
             steps {
                 git url: 'https://github.com/robinmetro1/DevOpsDemo.git'
-                bat "mvn -Dmaven.failure.ignore=true clean install"
+                bat "mvn clean package"
             }
             post {
                 success {
