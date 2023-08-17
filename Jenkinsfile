@@ -1,10 +1,9 @@
 pipeline {
     agent any
+    
     tools {
         maven 'Maven 3.3.9' 
     }
-    pipeline {
-    agent any
     
     stages {
         stage('Build Maven') {
@@ -55,18 +54,4 @@ pipeline {
         stage('Deploying') {
             steps {
                 echo "Deploying..."
-                // Add deployment steps here
-            }
-        }
-        
-        stage('Test') {
-            steps {
-                echo "Running tests..."
-                // Add test steps here
-            }
-        }
-    }
-}
-
-}
-
+                // Add deployment steps
