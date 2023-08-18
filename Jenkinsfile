@@ -8,8 +8,8 @@ pipeline {
     stages {
         stage('Build Maven') {
             steps {
-                git url: 'https://github.com/robinmetro1/DevOpsDemo.git'
-                bat "mvn clean package"
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/robinmetro1/DevOpsDemo.git']]])
+                sh 'mvn clean install'
             }
             post {
                 success {
