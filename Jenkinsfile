@@ -36,8 +36,6 @@ pipeline {
                  script {
                     // Log in to Docker Hub using Jenkins credentials
                     withDockerRegistry([credentialsId: 'docker-login', url: DOCKER_REGISTRY]) {
-                        //docker build
-                         def dockerImage = docker.build("eyaea/devops-demo:${env.BUILD_NUMBER}")
                         // Push the Docker image to the registry
                         def dockerImage = docker.image("eyaea/devops-demo:${env.BUILD_NUMBER}")
                         dockerImage.push()
