@@ -24,7 +24,11 @@ pipeline {
         stage('Build Docker image') {
             steps {
                 script {
-                    sh 'docker build -t eyaea/devops-demo .'
+                    // Define the Docker image name and tag
+                    def dockerImage = docker.build("eyaea/devops-demo:${env.BUILD_NUMBER}")
+                    
+                    // Optionally, you can tag the image with a different name or additional tags
+                    dockerImage.tag("eyaea/devops-demo:latest")
                 }
             }
             post {
