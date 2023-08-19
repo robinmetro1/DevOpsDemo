@@ -24,6 +24,7 @@ pipeline {
         stage('Build Docker image') {
             steps {
                 script {
+                    sh"docker login docker.io -u eyaea -p Lordmehrez2022*"  
                     // Define the Docker image name and tag
                     def dockerImage = docker.build("eyaea/devops-demo:${env.BUILD_NUMBER}")
                     
