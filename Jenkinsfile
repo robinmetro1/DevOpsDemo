@@ -30,6 +30,7 @@ pipeline {
                         def dockerImage = docker.image("eyaea/devops-demo:${env.BUILD_NUMBER}")
                         dockerImage.push()
                     }
+                 }
             }
             post {
                 success {
