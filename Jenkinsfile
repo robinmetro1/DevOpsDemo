@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent {dockerfile true}
     
     tools {
         maven 'maven-3.9.4' 
@@ -26,6 +26,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
+                    sh'echo echo key = $key'
                     // Build your Docker image
                     def dockerImage = docker.build("eyaea/devops-demo:${env.BUILD_NUMBER}")
                 }
