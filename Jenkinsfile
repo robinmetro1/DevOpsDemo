@@ -4,10 +4,6 @@ pipeline {
     tools {
         maven 'maven-3.9.4' 
     }
-    environment {
-        DOCKER_REGISTRY = 'docker.io'
-    }
-    
     stages {
         stage('Build Maven') {
             steps {
@@ -36,7 +32,7 @@ pipeline {
             steps {
                  script {
                     // Log in to Docker Hub using Jenkins credentials
-                    withDockerRegistry([credentialsId: 'docker-login', url: DOCKER_REGISTRY]) {
+                    withDockerRegistry([credentialsId: 'dockerhub', url: DOCKER_REGISTRY]) {
                         // Push the Docker image to the registry
                         def dockerImage = docker.image("eyaea/devops-demo:${env.BUILD_NUMBER}")
                         dockerImage.push()
