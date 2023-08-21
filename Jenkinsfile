@@ -5,7 +5,7 @@ pipeline {
         maven 'maven-3.9.4' 
     }
     environment {
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub')
+        DOCKER_REGISTRY = 'docker.io'
     }
     
     stages {
