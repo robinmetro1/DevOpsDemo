@@ -5,13 +5,13 @@ pipeline {
         maven 'maven-3.9.4' 
     }
     environment {
-        DOCKER_REGISTRY = 'docker.io'
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub')
     }
     
     stages {
         stage('Build Maven') {
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/robinmetro1/DevOpsDemo.git']]])
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/robinmetro1/DevOpsDemo.git']])
                 sh 'mvn clean install'
             }
             post {
@@ -26,7 +26,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh'echo echo key = $key'
+                    sh 'echo echo key = $key'
                     // Build your Docker image
                     def dockerImage = docker.build("eyaea/devops-demo:${env.BUILD_NUMBER}")
                 }
