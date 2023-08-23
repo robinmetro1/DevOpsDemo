@@ -22,7 +22,7 @@ pipeline {
             steps {
                 script {
                     // Build your Docker image
-                    def dockerImage = docker.build("eyaea/devops-demo:${env.BUILD_NUMBER}")
+                    sh 'docker build -t eyaea/devops-demo:${env.BUILD_NUMBER} .'
                 }
             }
         }
@@ -30,8 +30,8 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-                        dockerImage.tag("${env.BUILD_NUMBER}", "latest")
-                        dockerImage.push()
+                           sh 'docker push  eyaea/devops-demo '
+                  
                     }
                 }
 
