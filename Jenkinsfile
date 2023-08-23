@@ -27,24 +27,22 @@ pipeline {
             }
         }
         stage('Push Docker image') {
-            steps {
-                 script {
-                    // Log in to Docker Hub using Jenkins credentials
-                    withDockerRegistry([credentialsId: 'dockerhub', url: DOCKER_REGISTRY]) {
-                        // Push the Docker image to the registry
-                        def dockerImage = docker.image("eyaea/devops-demo:${env.BUILD_NUMBER}")
-                        dockerImage.push()
+                steps {
+                script {
+                    docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
+                        dockerImage.push("${env.BUILD_NUMBER}")
+                        dockerImage.push("latest")
                     }
-                 }
-            }
-            post {
-                success {
-                    echo "Success: Docker image built"
-                }
-                failure {
-                    echo "Failed: Docker image build"
                 }
             }
+        }
+    }
+    
+    post {
+        always {
+            dockerImage.cleanup()
+        }
+    }
         }
         
         stage('Push image to Hub') {
