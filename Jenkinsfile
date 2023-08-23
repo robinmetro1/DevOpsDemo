@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('Build Maven') {
             steps {
-                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/robinmetro1/DevOpsDemo.git']])
+                checkout scm
                 sh 'mvn clean install'
             }
             post {
@@ -27,7 +27,7 @@ pipeline {
             }
         }
         stage('Push Docker image') {
-                steps {
+            steps {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
                         dockerImage.push("${env.BUILD_NUMBER}")
@@ -35,16 +35,12 @@ pipeline {
                     }
                 }
             }
-        
-    
-    
-    post {
-        always {
-            dockerImage.cleanup()
+            post {
+                always {
+                    dockerImage.cleanup()
+                }
+            }
         }
-    }
-        }
-
         
         stage('Push image to Hub') {
             steps {
@@ -75,5 +71,3 @@ pipeline {
         }
     }
 }
-
-
