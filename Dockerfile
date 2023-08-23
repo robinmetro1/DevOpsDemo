@@ -10,3 +10,8 @@ RUN echo "deb [arch=$(dpkg --print-architecture) \
 RUN apt-get update && apt-get install -y docker-ce-cli
 USER jenkins
 RUN jenkins-plugin-cli --plugins "blueocean docker-workflow"
+FROM openjdk:17
+EXPOSE 8080
+ADD target/devops-demo.jar devops-demo.jar
+ENTRYPOINT ["java","-jar","/devops-demo.jar"]
+CMD ["-start"]
