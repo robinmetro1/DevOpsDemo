@@ -22,7 +22,7 @@ pipeline {
             steps {
                 script {
                     // Build your Docker image
-                    sh 'docker build -t eyaea/devops-demo:${env.BUILD_NUMBER} .'
+                    sh 'docker build -t eyaea/devops-demo .'
                 }
             }
         }
