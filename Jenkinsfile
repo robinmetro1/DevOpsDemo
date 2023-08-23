@@ -30,7 +30,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-                           sh 'docker push  eyaea/devops-demo '
+                           sh 'docker push  eyaea/devops-demo:latest'
                   
                     }
                 }
