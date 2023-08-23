@@ -37,24 +37,10 @@ pipeline {
             }
             post {
                  success {
-                    echo "Success: docker build completed"
+                    echo "Success: docker push completed"
                 }
                 failure {
-                    echo "Failed: Docker build failed"
-                }
-            }
-        }
-        
-        stage('Push image to Hub') {
-            steps {
-                sh 'docker push eyaea/devops-demo'
-            }
-            post {
-                success {
-                    echo "Success: Docker image pushed to registry"
-                }
-                failure {
-                    echo "Failed: Docker image push to registry"
+                    echo "Failed: Docker push failed"
                 }
             }
         }
