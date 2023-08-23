@@ -30,11 +30,11 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-                        sh 'docker push eyaea/devops-demo'
-                        dockerImage.push("${env.BUILD_NUMBER}")
-                        dockerImage.push("latest")
+                        dockerImage.tag("${env.BUILD_NUMBER}", "latest")
+                        dockerImage.push()
                     }
                 }
+
             }
             post {
                  success {
@@ -42,6 +42,9 @@ pipeline {
                 }
                 failure {
                     echo "Failed: Docker push failed"
+                }
+                always{
+                    sh 'docker logout'
                 }
             }
         }
