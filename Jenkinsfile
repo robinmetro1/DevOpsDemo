@@ -36,8 +36,11 @@ pipeline {
                 }
             }
             post {
-                always {
-                    dockerImage.cleanup()
+                 success {
+                    echo "Success: docker build completed"
+                }
+                failure {
+                    echo "Failed: Docker build failed"
                 }
             }
         }
