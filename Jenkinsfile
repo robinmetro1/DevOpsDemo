@@ -22,7 +22,7 @@ pipeline {
             steps {
                 script {
                     // Build your Docker image
-                    sh 'docker build -t eyaea/devops-demo .'
+                    sh 'docker build -t eyaea/devops-demo:v1 .'
                 }
             }
         }
@@ -30,7 +30,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-                           sh 'docker push  eyaea/devops-demo:build'
+                           sh 'docker push  eyaea/devops-demo:v1'
                   
                     }
                 }
