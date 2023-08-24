@@ -3,6 +3,12 @@ pipeline {
     tools {
         maven 'maven-3.9.4' 
     }
+     environment {
+        DOCKER_IMAGE = "eyaea/devops-demo"
+        DOCKER_TAG = "v1"
+        DOCKER_REGISTRY = "your-docker-registry-url"
+        DOCKER_CREDENTIALS_ID = 'dockerhub'
+    }
     stages {
         stage('Build Maven') {
             steps {
@@ -22,15 +28,15 @@ pipeline {
             steps {
                 script {
                     // Build your Docker image
-                    sh 'docker build -t eyaea/devops-demo:v1 .'
+                   docker.build("${DOCKER_IMAGE}:${DOCKER_TAG}", ".")
                 }
             }
         }
         stage('Push Docker image') {
             steps {
                 script {
-                    docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-                           sh 'docker push  eyaea/devops-demo:v1'
+                    docker.withRegistry('https://registry.hub.docker.com', DOCKER_CREDENTIALS_ID) {
+                        dockerImage.push("${DOCKER_IMAGE}:${DOCKER_TAG}")
                   
                     }
                 }
@@ -44,7 +50,7 @@ pipeline {
                     echo "Failed: Docker push failed"
                 }
                 always{
-                    sh 'docker logout'
+                   docker.logout()
                 }
             }
         }
