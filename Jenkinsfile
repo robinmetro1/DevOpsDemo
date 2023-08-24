@@ -50,8 +50,9 @@ pipeline {
                     echo "Failed: Docker push failed"
                 }
                 always{
-                   docker.logout()
-                }
+                  script {
+                docker.logout()
+                 }                }
             }
         }
         
