@@ -36,7 +36,6 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', DOCKER_CREDENTIALS_ID) {
-                        sh 'docker tag $DOCKER_IMAGE:$DOCKER_TAG $DOCKER_IMAGE:$DOCKER_TAG'
                         dockerImage.push("${DOCKER_IMAGE}:${DOCKER_TAG}")
 
                     }
