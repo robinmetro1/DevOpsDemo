@@ -37,7 +37,7 @@ pipeline {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', DOCKER_CREDENTIALS_ID) {
                         dockerImage.push("${DOCKER_IMAGE}:${DOCKER_TAG}")
-                        sh 'docker push eyaea/devops-demo:v1'
+                        sh 'docker push eyaea/devops-demo:v2'
 
                     }
                 }
