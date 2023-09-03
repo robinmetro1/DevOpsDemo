@@ -5,7 +5,7 @@ pipeline {
     }
      environment {
         DOCKER_IMAGE = "eyaea/devops-demo"
-        DOCKER_TAG = "v2"
+        DOCKER_TAG = "latest"
         DOCKER_REGISTRY = "your-docker-registry-url"
         DOCKER_CREDENTIALS_ID = 'dockerhub'
     }
