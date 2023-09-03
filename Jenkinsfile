@@ -48,6 +48,7 @@ pipeline {
                 }
 
             }
+        }
          
         
         stage('Deploying') {
@@ -63,12 +64,17 @@ pipeline {
                 // Add test steps here
             }
         }
-           post {
+
+         post {
                 always{
                   script {
                 sh 'docker logout'
                  }                }
             }
-        }
+          
+        
     }
 }
+    
+
+
