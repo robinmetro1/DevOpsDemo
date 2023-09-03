@@ -24,20 +24,26 @@ pipeline {
                 }
             }
         }
+           stage('Chechout scm') {
+            steps {
+                    checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/robinmetro1/DevOpsDemo.git']])                
+            }
+        }
         stage('Build Docker Image') {
             steps {
                 script {
                     // Build your Docker image
-                   docker.build("${DOCKER_IMAGE}:${DOCKER_TAG}", ".")
+                    def dockerImage = docker.build("${DOCKER_IMAGE}:${DOCKER_TAG}", ".")
                 }
             }
         }
+       
         stage('Push Docker image') {
             steps {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', DOCKER_CREDENTIALS_ID) {
-                        dockerImage.push("${DOCKER_IMAGE}:${DOCKER_TAG}")
-
+                       def dockerImage = docker.image(env.DOCKER_IMAGE)
+                        dockerImage.push(env.DOCKER_TAG)
                     }
                 }
 
