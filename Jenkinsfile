@@ -48,19 +48,7 @@ pipeline {
                 }
 
             }
-            post {
-                 success {
-                    echo "Success: docker push completed"
-                }
-                failure {
-                    echo "Failed: Docker push failed"
-                }
-                always{
-                  script {
-                docker.logout()
-                 }                }
-            }
-        }
+         
         
         stage('Deploying') {
             steps {
@@ -73,6 +61,13 @@ pipeline {
             steps {
                 echo "Running tests..."
                 // Add test steps here
+            }
+        }
+           post {
+                always{
+                  script {
+                sh 'docker logout'
+                 }                }
             }
         }
     }
